@@ -1,3 +1,5 @@
+//Hiago de Oliveira Mendes e Lucas Rocha Rangel
+
 #include <stdio.h>
 #include <pthread.h>
 
