@@ -56,7 +56,7 @@ int main() {
     scanf("%d", &a);
 
     do {
-        printf("Digite o valor de b (b ≠ 0): ");
+        printf("Digite o valor de b (b != 0): ");
         scanf("%d", &b);
     } while (b == 0);
 
