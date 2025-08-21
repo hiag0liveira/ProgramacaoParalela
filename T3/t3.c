@@ -11,7 +11,7 @@
 #define MAX_THREADS 4
 
 /* Índices para facilitar a referência aos vetores */
-enum { IDX_SOMA = 0, IDX_SUBTRACAO = 1, IDX_MULTIPLICACAO = 2, IDX_DIVISAO = 3 };
+enum { IDX_SOMA = 3, IDX_SUBTRACAO = 2, IDX_MULTIPLICACAO = 1, IDX_DIVISAO = 0 };
 
 /* Estrutura compartilhada por todas as threads (somente leitura durante as N execuções) */
 typedef struct {
@@ -50,7 +50,6 @@ void* executarOperacao(void* arg) {
         /* Aguarda o direito de execução da k-ésima sequência desta operação */
         sem_wait(&S->sem[idx]);
 
-        /* Exigência do T3: dormir t_i após ganhar o direito de execução */
         sleep(tempo);
 
         /* Calcula e imprime o resultado da operação da sequência k */
@@ -63,7 +62,7 @@ void* executarOperacao(void* arg) {
         if (idx == IDX_DIVISAO) {
             if (k < S->N) sem_post(&S->sem[IDX_SOMA]);   /* inicia Soma da sequência k+1 */
         } else {
-            sem_post(&S->sem[idx + 1]);                  /* libera a próxima operação da mesma sequência */
+            sem_post(&S->sem[idx - 1]);                  /* libera a próxima operação da mesma sequência */
         }
     }
 
@@ -78,9 +77,9 @@ int main(void) {
     A ideia é ter um único bloco de memória com os parâmetros e os semáforos, e cada thread recebe um ponteiro
     para esse mesmo bloco. Assim, todas “enxergam” os mesmos valores e os mesmos semáforos. */
 
-    const char* operacoes[] = {"SOMA", "SUBTRACAO", "MULTIPLICACAO", "DIVISAO"};
+    const char* operacoes[] = {"DIVISAO", "MULTIPLICACAO", "SUBTRACAO", "SOMA"};
 
-    /* Entrada simples no mesmo espírito do T2 */
+    /* Entrada simples */
     printf("Digite o valor de a: ");
     scanf("%d", &a);
 

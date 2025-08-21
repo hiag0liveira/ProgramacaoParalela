@@ -22,13 +22,13 @@ void* executarOperacao(void* arg) {
     int resultado;
 
     // Determina qual operação realizar
-    if (strcmp(dados->operacao, "SOMA") == 0) {
+    if (strcmp(dados->operacao, "SOM") == 0) {
         resultado = dados->a + dados->b;
-    } else if (strcmp(dados->operacao, "SUBTRACAO") == 0) {
+    } else if (strcmp(dados->operacao, "SUB") == 0) {
         resultado = dados->a - dados->b;
-    } else if (strcmp(dados->operacao, "MULTIPLICACAO") == 0) {
+    } else if (strcmp(dados->operacao, "MULT") == 0) {
         resultado = dados->a * dados->b;
-    } else if (strcmp(dados->operacao, "DIVISAO") == 0) {
+    } else if (strcmp(dados->operacao, "DIV") == 0) {
         resultado = dados->a / dados->b;
     }
 
@@ -49,7 +49,7 @@ int main() {
     int a, b;
     pthread_t threads[MAX_THREADS];
     DadosThread dados[MAX_THREADS];
-    char* operacoes[] = {"SOMA", "SUBTRACAO", "MULTIPLICACAO", "DIVISAO"};
+    char* operacoes[] = {"SOM", "SUB", "MULT", "DIV"};
 
     // Leitura dos valores de entrada
     printf("Digite o valor de a: ");
